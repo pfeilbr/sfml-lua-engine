@@ -14,5 +14,7 @@ function render()
     local message = "render() function here, i've been called " .. counter .. " times"
     print(message)
     displayText(message)
-    drawRectanlge()
+
+    -- x, y, width, height
+    drawRectanlge(10, 80, 100, 50)
 end

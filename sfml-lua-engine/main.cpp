@@ -37,11 +37,15 @@ static int displayText(lua_State *L) {
 }
 
 static int drawRectanlge(lua_State *L) {
+    int positionX = lua_tointeger(L, 1);
+    int positionY = lua_tointeger(L, 2);
+    int width = lua_tointeger(L, 3);
+    int height = lua_tointeger(L, 4);
     sf::RectangleShape rectangle;
-    rectangle.setSize(sf::Vector2f(100, 50));
+    rectangle.setSize(sf::Vector2f(width, height));
     rectangle.setOutlineColor(sf::Color::Red);
     rectangle.setOutlineThickness(5);
-    rectangle.setPosition(10, 40);
+    rectangle.setPosition(positionX, positionY);
     window.draw(rectangle);
 }
 
