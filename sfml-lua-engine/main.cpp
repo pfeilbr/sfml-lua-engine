@@ -49,6 +49,43 @@ static int drawRectanlge(lua_State *L) {
     window.draw(rectangle);
 }
 
+//static int __index(lua_State *L)
+//{
+//    const char *key = lua_tostring(L, 2);
+//    char message[255];
+//    sprintf(message, "you accessed property '%s' that does not exist", key);
+//
+//    lua_pushstring(L, message);
+//    return 1;
+//}
+
+static int __index(lua_State *L)
+{
+    const char *key = lua_tostring(L, 2);
+    char message[255];
+    sprintf(message, "you accessed property '%s'", key);
+    cout << message << endl;
+
+    lua_createtable(L, 0, 0);
+    lua_createtable(L, 0, 1);
+    lua_pushcfunction(L, __index);
+    lua_setfield(L, -2, "__index");
+    lua_setmetatable(L, -2);
+    
+    return 1;
+}
+
+static void createTableAndSetMetatable(lua_State *L) {
+    // see https://stackoverflow.com/questions/3449759/lua-c-api-and-metatable-functions
+    lua_createtable(L, 0, 0);
+    lua_createtable(L, 0, 1);
+    lua_pushcfunction(L, __index);
+    lua_setfield(L, -2, "__index");
+    lua_setmetatable(L, -2);
+    lua_setglobal(L, "game");
+}
+
+
 static void initializeLua() {
     L = luaL_newstate();
     luaopen_base(L);
@@ -59,6 +96,8 @@ static void initializeLua() {
     
     lua_register(L, "displayText", displayText);
     lua_register(L, "drawRectanlge", drawRectanlge);
+    
+    createTableAndSetMetatable(L);
 }
 
 static void loadLua() {
