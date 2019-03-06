@@ -41,9 +41,9 @@ print(game.Workspace.Part2.Name)
 
 print(game.Players.LocalPlayer.Name)
 
-getglobal print
-getglobal game
-getfield -1 Players
-getfield -1 LocalPlayer
-getfield -1 Name
-pcall 1,0,0
+-- getglobal print
+-- getglobal game
+-- getfield -1 Players
+-- getfield -1 LocalPlayer
+-- getfield -1 Name
+-- pcall 1,0,0
